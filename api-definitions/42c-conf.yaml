@@ -1,0 +1,6 @@
+audit:
+  branches:
+    main:
+      mapping:
+        minimal-api.oas.yaml: f0005b42-b5d1-4134-a2fb-5596cb30bef4
+      discovery: false

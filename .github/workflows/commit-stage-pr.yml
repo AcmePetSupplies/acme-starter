@@ -67,6 +67,8 @@ jobs:
           api-token: ${{ secrets.CRUNCH_API_TOKEN }}
           min-score: 75
           default-collection-name: api-starter
+          log-level: DEBUG
+          root-directory: api-definitions
 
 
   commit-stage-lint-code-base:
