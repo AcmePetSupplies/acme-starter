@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Minimal API
+  description: Todo
+  contact:
+    name: Acme Pet Supplies
+    url: 'https://AcmePetSupplies.com'
+    email: john.smith@acme-pet-supplies.com
+  version: '1.0'
+servers:
+  - url: 'https://localhost:8000'
+tags:
+  - name: System Health
+    description: Health status of the API
+paths:
+  /health:
+    get:
+      tags:
+        - System Health
+      summary: Health endpoint
+      operationId: health
+      description: Health endpoint.
+      responses:
+        '200':
+          description: Pass or warn response
+          content:
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              examples:
+                Pass:
+                  value:
+                    status: pass
+                    description: Health of service
+                Warn:
+                  value:
+                    status: warn
+                    description: Health of service
+        '503':
+          description: Fail response
+          content:
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              examples:
+                Fail:
+                  value:
+                    status: fail
+                    description: Health of service
+components:
+  schemas:
+    Health:
+      title: Health
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          enum:
+            - pass
+            - fail
+            - warn
+          example: pass
+          type: string
+          description: Indicates whether the service status is acceptable or not.
+        description:
+          type: string
+          description: Human-friendly description of the service.
+          example: Health of service
+          minLength: 1
+          maxLength: 100
+      required:
+        - status
