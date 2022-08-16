@@ -68,7 +68,7 @@ jobs:
           min-score: 75
           default-collection-name: api-starter
           log-level: DEBUG
-          root-directory: ${{GITHUB_WORKSPACE}}/api-definitions
+          root-directory: ${GITHUB_WORKSPACE}/api-definitions
 
 
   commit-stage-lint-code-base:
