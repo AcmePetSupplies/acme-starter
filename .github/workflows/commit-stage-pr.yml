@@ -48,8 +48,8 @@ jobs:
         # https://github.com/swimmwatch/openapi-diff-action
         uses: swimmwatch/openapi-diff-action@v1.0.1
         with:
-          old-spec: base/api-definitions/product-catalog-api.oas.yaml
-          new-spec: head/api-definitions/product-catalog-api.oas.yaml
+          old-spec: base/api-definitions/minimal-api.oas.yaml
+          new-spec: head/api-definitions/minimal-api.oas.yaml
           json: "diff.json"
           markdown: "diff.md"
           text: "diff.txt"
@@ -80,7 +80,9 @@ jobs:
         uses: 42Crunch/api-security-audit-action@v3
         with:
           api-token: ${{ secrets.CRUNCH_API_TOKEN }}
-          min-score: 85
+          min-score: 75
+          default-collection-name: api-starter
+
 
   commit-stage-lint-code-base:
     name: Lint Markdown

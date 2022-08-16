@@ -1,0 +1,6 @@
+audit:
+  branches:
+    main:
+      fail_on:
+        severity: medium
+      discovery: false

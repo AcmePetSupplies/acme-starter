@@ -4,11 +4,11 @@ info:
   description: Todo
   contact:
     name: Acme Pet Supplies
-    url: 'https://AcmePetSupplies.com'
+    url: "https://AcmePetSupplies.com"
     email: john.smith@acme-pet-supplies.com
-  version: '1.0'
+  version: "1.0"
 servers:
-  - url: 'https://localhost:8000'
+  - url: "https://localhost:8000"
 tags:
   - name: System Health
     description: Health status of the API
@@ -21,12 +21,12 @@ paths:
       operationId: health
       description: Health endpoint.
       responses:
-        '200':
+        "200":
           description: Pass or warn response
           content:
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Health'
+                $ref: "#/components/schemas/Health"
               examples:
                 Pass:
                   value:
@@ -36,18 +36,65 @@ paths:
                   value:
                     status: warn
                     description: Health of service
-        '503':
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+        "401":
+          $ref: "#/components/responses/401Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "503":
           description: Fail response
           content:
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Health'
+                $ref: "#/components/schemas/Health"
               examples:
                 Fail:
                   value:
                     status: fail
                     description: Health of service
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
 components:
+  responses:
+    401Response:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            title: 401 Error
+            type: object
+            additionalProperties: false
+            properties:
+              message:
+                type: string
+                pattern: ^[\w\s\.\"\']+$
+                description: Invalid authentication credentials.
+                minLength: 1
+                maxLength: 100
+                example: Invalid authentication credentials.
+            required:
+              - message
+    403Response:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            title: 403 Error
+            type: object
+            additionalProperties: false
+            properties:
+              message:
+                type: string
+                pattern: ^[\w\s\.\"\']+$
+                description: Forbidden.
+                minLength: 1
+                maxLength: 100
+                example: Forbidden.
+            required:
+              - message
   schemas:
     Health:
       title: Health
@@ -65,8 +112,17 @@ components:
         description:
           type: string
           description: Human-friendly description of the service.
-          example: Health of service
+          pattern: ^[\w\s\.\"\']+$
           minLength: 1
           maxLength: 100
+          example: Health of service
       required:
         - status
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-API-Key
+      in: header
+
+security:
+  - apiKey: []
