@@ -1,0 +1,115 @@
+name: Commit Stage Pull Request Workflow
+
+on: 
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  run_number: ${GITHUB_RUN_NUMBER}
+
+permissions:
+  checks: write
+
+jobs:
+  commit-stage-open-api-lint:
+    name: Lint Open API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout out pr branch
+        uses: actions/checkout@v3
+      - name: View working folder
+        run:  tree
+      - name: "Run API linting (with Spectral)"
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: 'api-definitions/*.oas.yaml'
+          spectral_ruleset: 'api-definitions/.spectral.yaml'
+
+  commit-stage-breaking-change-check:
+    name: Breaking Change Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout out pr branch
+        uses: actions/checkout@v3
+        with:
+          path: head
+      - name: Check out main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          path: base
+      - name: View working folder
+        run: |
+          ls -lash
+          tree
+      - name: "Run breaking change check (with OpenAPITools/openapi-diff)"
+        id: diff_state
+        # https://github.com/swimmwatch/openapi-diff-action
+        uses: swimmwatch/openapi-diff-action@v1.0.1
+        with:
+          old-spec: base/api-definitions/product-catalog-api.oas.yaml
+          new-spec: head/api-definitions/product-catalog-api.oas.yaml
+          json: "diff.json"
+          markdown: "diff.md"
+          text: "diff.txt"
+      - name: "Upload OpenAPI-diff report as Github Artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          name: diff-reports
+          path: |
+            ./diff.md
+            ./diff.json
+            ./diff.txt
+      - name: "Fail if breaking change"
+        if: ${{ steps.diff_state.outputs.state == 'incompatible' }} 
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed("Failed due to breaking change! Diff state - ${{ steps.diff_state.outputs.state }} ")
+
+  commit-stage-security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout out pr branch
+        uses: actions/checkout@v3
+      - name: View working folder
+        run:  tree
+      - name: "Run OpenAPI security audit"
+        uses: 42Crunch/api-security-audit-action@v3
+        with:
+          api-token: ${{ secrets.CRUNCH_API_TOKEN }}
+          min-score: 85
+
+  commit-stage-lint-code-base:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: View all files
+        run: tree
+      - name: Lint using Super Linter
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: main
+          VALIDATE_MARKDOWN: true
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+  commit-stage-lint-prose:
+    name: Lint prose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Lint guide docs
+        uses: errata-ai/vale-action@reviewdog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: '["docs"]'
+          
