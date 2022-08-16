@@ -43,16 +43,6 @@ jobs:
         run: |
           ls -lash
           tree
-      - name: "Run breaking change check (with OpenAPITools/openapi-diff)"
-        id: diff_state
-        # https://github.com/swimmwatch/openapi-diff-action
-        uses: swimmwatch/openapi-diff-action@v1.0.1
-        with:
-          old-spec: base/api-definitions/minimal-api.oas.yaml
-          new-spec: head/api-definitions/minimal-api.oas.yaml
-          json: "diff.json"
-          markdown: "diff.md"
-          text: "diff.txt"
       - name: Running OpenAPI Spec diff action (Tufin/oasdiff)
         id: test_breaking_changes
         uses: Tufin/oasdiff-action@v2
@@ -62,20 +52,6 @@ jobs:
           format: 'yaml'
           breaking-only: true
           fail-on-diff: true
-      - name: "Upload OpenAPI-diff report as Github Artifact"
-        uses: actions/upload-artifact@v3
-        with:
-          name: diff-reports
-          path: |
-            ./diff.md
-            ./diff.json
-            ./diff.txt
-      - name: "Fail if breaking change"
-        if: ${{ steps.diff_state.outputs.state == 'incompatible' }} 
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.setFailed("Failed due to breaking change! Diff state - ${{ steps.diff_state.outputs.state }} ")
 
   commit-stage-security-audit:
     name: Security Audit
