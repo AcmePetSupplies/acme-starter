@@ -31,7 +31,7 @@ jobs:
           portman --cliOptionsFile config/ci-portman-cli-options.json
       - name: "Zip API definition, Postman collection"
         run: |
-          zip artifacts.zip api-definitions/product-catalog-api.oas.yaml output/postman.collection.json
+          zip artifacts.zip api-definitions/minimal-api.oas.yaml output/postman.collection.json
       - name: "Setup artifact repository CLI (Jfrog CLI)"
         uses: jfrog/setup-jfrog-cli@v2
         env:
