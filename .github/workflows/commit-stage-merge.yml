@@ -31,6 +31,7 @@ jobs:
           portman --cliOptionsFile config/ci-portman-cli-options.json
 
       #TODO: Replace with GitHub packages
+      # 
       # - name: "Zip API definition, Postman collection"
       #   run: |
       #     zip artifacts.zip api-definitions/minimal-api.oas.yaml output/postman.collection.json
