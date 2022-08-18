@@ -1,8 +1,8 @@
 {
   "local": "./api-definitions/minimal-api.oas.yaml",
   "output": "./output/postman.collection.json",
-  "portmanConfigFile": "./test-config/ci-portman-config.json",
-  "postmanConfigFile": "./test-config/ci-postman-config.json",
+  "portmanConfigFile": "./config/ci-portman-config.json",
+  "postmanConfigFile": "./config/ci-postman-config.json",
   "syncPostman": false,
   "runNewman": false
 }
