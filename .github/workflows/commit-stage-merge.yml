@@ -29,6 +29,7 @@ jobs:
       - name: Generate Postman collections for external consumers
         run: |
           portman --cliOptionsFile config/ci-portman-cli-options.json
+          
       #TODO: Replace with GitHub packages
       # - name: "Zip API definition, Postman collection"
       #   run: |
