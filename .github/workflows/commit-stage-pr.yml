@@ -86,8 +86,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-  commit-stage-lint-prose:
-    name: Lint prose
+  commit-stage-lint-guide-docs:
+    name: Lint guide documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
