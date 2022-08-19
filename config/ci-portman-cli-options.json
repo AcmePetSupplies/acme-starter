@@ -1,5 +1,5 @@
 {
-  "local": "./api-definitions/minimal-api.oas.yaml",
+  "local": "./api-definitions/skeleton-api.oas.yaml",
   "output": "./output/postman.collection.json",
   "portmanConfigFile": "./config/ci-portman-config.json",
   "postmanConfigFile": "./config/ci-postman-config.json",
