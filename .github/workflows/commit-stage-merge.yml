@@ -33,7 +33,7 @@ jobs:
       #TODO: Replace with GitHub packages
       # - name: "Zip API definition, Postman collection"
       #   run: |
-      #     zip artifacts.zip api-definitions/minimal-api.oas.yaml output/postman.collection.json
+      #     zip artifacts.zip api-definitions/skeleton-api.oas.yaml output/postman.collection.json
       
       # - name: "Setup artifact repository CLI (Jfrog CLI)"
       #   uses: jfrog/setup-jfrog-cli@v2
@@ -42,5 +42,5 @@ jobs:
       # - name: "Upload to artifact repository (Jfrog Artifactory)"
       #   run: |
       #     jf rt ping
-      #     jf rt upload artifacts.zip default-api-generic-local/com.acmeps/minimal-api/artifacts.${{ env.run_number }}.zip
+      #     jf rt upload artifacts.zip default-api-generic-local/com.acmeps/skeleton-api/artifacts.${{ env.run_number }}.zip
           
