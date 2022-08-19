@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Minimal API
+  title: TODO - API title
   description: Todo
   contact:
     name: Acme Pet Supplies
