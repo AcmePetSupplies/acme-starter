@@ -7,3 +7,4 @@ if [ "$1" == "-h" ] || [ -z "$1" ]; then
 fi
 
 grep -RiIl 'skeleton' --exclude=rename-skeleton-project.sh | xargs sed -i '' -e "s/skeleton/$1/g"
+mv api-definitions/skeleton-api.oas.yaml api-definitions/$1-api.oas.yaml
