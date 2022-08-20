@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ] || [ -z "$1" ]; then
-    echo "Rename Skeleton API project to your desired project name"
+    echo "Rename Skeleton API project to your desired project name e.g product catalog"
     echo "Usage: `basename $0` [your-project-name]"
     exit 0
 fi
