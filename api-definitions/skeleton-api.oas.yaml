@@ -10,10 +10,22 @@ info:
 servers:
   - url: "https://localhost:8000"
 tags:
+  - name: TODO Tag
+    description: Replace with your tag
   - name: System Health
     description: Health status of the API
 paths:
-  /health:
+  /v1/todo:
+    get:
+      tags:
+        - TODO Tag
+      summary: TODO
+      operationId: todo
+      description: "Todo"
+      responses:
+        "200":
+          description: Todo
+  /v1/health:
     get:
       tags:
         - System Health
