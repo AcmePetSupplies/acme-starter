@@ -25,6 +25,13 @@ paths:
       responses:
         "200":
           description: Todo
+        "404":
+          description: Todo
+        "401":
+          description: Todo
+        "default":
+          description: Todo
+        
   /v1/health:
     get:
       tags:
