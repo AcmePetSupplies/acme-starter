@@ -63,19 +63,19 @@ paths:
               examples:
                 Pass:
                   value:
-                    status: pass
-                    description: Health of service
+                    healthStatus: pass
+                    description: Service is operational
                 Warn:
                   value:
-                    status: warn
-                    description: Health of service
+                    healthStatus: warn
+                    description: Service is running with degraded performance
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthyService"
         "401":
-          $ref: "#/components/responses/401Response"
+          $ref: "shared/responses/401Response.yaml"
         "403":
-          $ref: "#/components/responses/403Response"
+          $ref: "shared/responses/403Response.yaml"
         "503":
           description: Fail response
           content:
@@ -85,56 +85,19 @@ paths:
               examples:
                 Fail:
                   value:
-                    status: fail
-                    description: Health of service
+                    healthStatus: fail
+                    description: Service failure
             application/json:
               schema:
                 $ref: "#/components/schemas/UnhealthyService"
 components:
-  responses:
-    401Response:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            title: 401 Error
-            type: object
-            additionalProperties: false
-            properties:
-              message:
-                type: string
-                pattern: ^[-#\/\w\s\.\"\'\d]+$
-                description: Invalid authentication credentials.
-                minLength: 1
-                maxLength: 100
-                example: Invalid authentication credentials.
-            required:
-              - message
-    403Response:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            title: 403 Error
-            type: object
-            additionalProperties: false
-            properties:
-              message:
-                type: string
-                pattern: ^[-#\/\w\s\.\"\'\d]+$
-                description: Forbidden.
-                minLength: 1
-                maxLength: 100
-                example: Forbidden.
-            required:
-              - message
   schemas:
     HealthyService:
       title: Health
       type: object
       additionalProperties: false
       properties:
-        status:
+        healthStatus:
           enum:
             - pass
             - warn
@@ -149,13 +112,13 @@ components:
           maxLength: 100
           example: Health of service
       required:
-        - status
+        - healthStatus
     UnhealthyService:
       title: Health
       type: object
       additionalProperties: false
       properties:
-        status:
+        healthStatus:
           enum:
             - fail
           example: fail
@@ -167,9 +130,8 @@ components:
           pattern: ^[-#\/\w\s\.\"\'\d]+$
           minLength: 1
           maxLength: 100
-          example: Health of service
       required:
-        - status
+        - healthStatus
   securitySchemes:
     apiKey:
       type: apiKey
