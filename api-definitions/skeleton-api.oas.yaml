@@ -24,13 +24,23 @@ paths:
       description: "Todo"
       responses:
         "200":
-          description: Todo
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  todo:
+                    type: string
+                    description: "A todo"
+                    example: "Replace me"
         "404":
-          description: Todo
+          $ref: "shared/responses/404Response.yaml"
         "401":
-          description: Todo
-        "default":
-          description: Todo
+          $ref: "shared/responses/401Response.yaml"
+        "403":
+          $ref: "shared/responses/403Response.yaml"
         
   /v1/health:
     get:
