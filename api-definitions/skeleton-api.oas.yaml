@@ -33,8 +33,12 @@ paths:
                 properties:
                   todo:
                     type: string
+                    pattern: ^[-#\/\w\s\.\"\'\d]+$
+                    minLength: 1
+                    maxLength: 100
                     description: "A todo"
                     example: "Replace me"
+
         "404":
           $ref: "shared/responses/404Response.yaml"
         "401":
@@ -99,7 +103,7 @@ components:
             properties:
               message:
                 type: string
-                pattern: ^[\w\s\.\"\']+$
+                pattern: ^[-#\/\w\s\.\"\'\d]+$
                 description: Invalid authentication credentials.
                 minLength: 1
                 maxLength: 100
@@ -117,7 +121,7 @@ components:
             properties:
               message:
                 type: string
-                pattern: ^[\w\s\.\"\']+$
+                pattern: ^[-#\/\w\s\.\"\'\d]+$
                 description: Forbidden.
                 minLength: 1
                 maxLength: 100
@@ -140,7 +144,7 @@ components:
         description:
           type: string
           description: Human-friendly description of the service.
-          pattern: ^[\w\s\.\"\']+$
+          pattern: ^[-#\/\w\s\.\"\'\d]+$
           minLength: 1
           maxLength: 100
           example: Health of service
@@ -160,7 +164,7 @@ components:
         description:
           type: string
           description: Human-friendly description of the service.
-          pattern: ^[\w\s\.\"\']+$
+          pattern: ^[-#\/\w\s\.\"\'\d]+$
           minLength: 1
           maxLength: 100
           example: Health of service

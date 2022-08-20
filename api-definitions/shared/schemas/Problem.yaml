@@ -8,9 +8,14 @@ additionalProperties: false
 properties:
   type:
     type: string
+    pattern: ^[-#\/\w\s\.\"\'\d]+$
+    minLength: 1
+    maxLength: 100
     description: A URI reference that identifies the problem type. It is recommended but not necessary that the URI should resolve to human-readable HTML documentation describing the type. The problem type provides information that is more specific than the HTTP status code.
   title:
     type: string
+    pattern: ^[-#\/\w\s\.\"\'\d]+$
+    maxLength: 100
     description: "A short, human-readable description of the problem type. The title should be the same for given types."
   status:
     maximum: 600
@@ -21,7 +26,11 @@ properties:
     format: int32
   detail:
     type: string
+    pattern: ^[-#\/\w\s\.\"\'\d]+$
+    maxLength: 100
     description: "A human-readable description of the problem instance, explaining why the problem occurred in this specific case. Should focus on helping the client correct the problem, rather than giving debugging information."
   instance:
     type: string
+    pattern: ^[-#\/\w\s\.\"\'\d]+$
+    maxLength: 100
     description: A URI reference that identifies the specific occurrence of the problem.  It may or may not yield further information if dereferenced.
