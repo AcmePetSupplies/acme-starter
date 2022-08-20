@@ -12,8 +12,8 @@ permissions:
   checks: write
 
 jobs:
-  commit-stage-merge:
-    name: Commit Stage Merge
+  commit-stage-api-definition-release-candidate:
+    name: Commit Stage API definition release candidate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout out pr branch
@@ -23,6 +23,11 @@ jobs:
         with:
           file_glob: "api-definitions/*.oas.yaml"
           spectral_ruleset: ".spectral.yaml"
+      - name: Install Redocly CLI
+        run: |
+          npm list @redocly/cli@latest || npm i -g @redocly/cli@latest
+      - name: Bundle the API definition
+        run : redocly bundle api-definitions/skeleton-api.oas.yaml --output api-definitions/bundled-skeleton-api.oas.yaml
       - name: Install Portman
         run: |
           npm list @apideck/portman || npm install -g @apideck/portman
