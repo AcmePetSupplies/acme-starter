@@ -24,7 +24,28 @@ paths:
       description: "Todo"
       responses:
         "200":
-          description: Todo
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  todo:
+                    type: string
+                    pattern: ^[-#\/\w\s\.\"\'\d]+$
+                    minLength: 1
+                    maxLength: 100
+                    description: "A todo"
+                    example: "Replace me"
+
+        "404":
+          $ref: "shared/responses/404Response.yaml"
+        "401":
+          $ref: "shared/responses/401Response.yaml"
+        "403":
+          $ref: "shared/responses/403Response.yaml"
+        
   /v1/health:
     get:
       tags:
@@ -82,7 +103,7 @@ components:
             properties:
               message:
                 type: string
-                pattern: ^[\w\s\.\"\']+$
+                pattern: ^[-#\/\w\s\.\"\'\d]+$
                 description: Invalid authentication credentials.
                 minLength: 1
                 maxLength: 100
@@ -100,7 +121,7 @@ components:
             properties:
               message:
                 type: string
-                pattern: ^[\w\s\.\"\']+$
+                pattern: ^[-#\/\w\s\.\"\'\d]+$
                 description: Forbidden.
                 minLength: 1
                 maxLength: 100
@@ -123,7 +144,7 @@ components:
         description:
           type: string
           description: Human-friendly description of the service.
-          pattern: ^[\w\s\.\"\']+$
+          pattern: ^[-#\/\w\s\.\"\'\d]+$
           minLength: 1
           maxLength: 100
           example: Health of service
@@ -143,7 +164,7 @@ components:
         description:
           type: string
           description: Human-friendly description of the service.
-          pattern: ^[\w\s\.\"\']+$
+          pattern: ^[-#\/\w\s\.\"\'\d]+$
           minLength: 1
           maxLength: 100
           example: Health of service
