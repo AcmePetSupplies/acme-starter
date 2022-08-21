@@ -1,0 +1,8 @@
+# Main JSON:API Spectral RuleSet
+# https://jsonapi.org/format/
+
+
+extends:
+  - jsonapi-content-negotiation-ruleset.yaml
+  - jsonapi-document-structure-ruleset.yaml
+  - jsonapi-errors-ruleset.yaml
