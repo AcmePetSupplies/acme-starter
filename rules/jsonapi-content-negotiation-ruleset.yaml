@@ -1,0 +1,6 @@
+# Content Negotiation
+# https://jsonapi.org/format/#content-negotiation
+
+extends:
+  - jsonapi-content-negotiation-clients.yaml
+  - jsonapi-content-negotiation-servers.yaml
