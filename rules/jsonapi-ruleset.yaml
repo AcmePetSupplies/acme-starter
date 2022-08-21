@@ -3,6 +3,7 @@
 
 
 extends:
+  - spectral:oas
   - jsonapi-content-negotiation-ruleset.yaml
   - jsonapi-document-structure-ruleset.yaml
   - jsonapi-errors-ruleset.yaml
