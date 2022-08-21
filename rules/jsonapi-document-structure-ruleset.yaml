@@ -1,5 +1,6 @@
 # Document Structure
 # https://jsonapi.org/format/#document-structure
+# https://github.com/jmlue42/spectral-jsonapi-ruleset
 
 extends:
   - jsonapi-document-structure-top-level.yaml

@@ -1,6 +1,6 @@
 # Main JSON:API Spectral RuleSet
 # https://jsonapi.org/format/
-
+# https://github.com/jmlue42/spectral-jsonapi-ruleset
 
 extends:
   - spectral:oas
