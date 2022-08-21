@@ -1,9 +1,7 @@
-# Main JSON:API Spectral RuleSet
-# https://jsonapi.org/format/
-# https://github.com/jmlue42/spectral-jsonapi-ruleset
 
 extends:
   - spectral:oas
+  - acme-paths.yaml
   - jsonapi-content-negotiation-ruleset.yaml
   - jsonapi-document-structure-ruleset.yaml
   - jsonapi-errors-ruleset.yaml
